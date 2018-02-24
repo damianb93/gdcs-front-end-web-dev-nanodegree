@@ -1,2 +1,2 @@
 # gdcsFrontEndWebDevNanodegree
-Front-End Web Developer Nanodegree Program
+###### Google Developer Challange Scholarship: Front-End Web Developer Nanodegree Program
