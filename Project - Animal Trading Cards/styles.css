@@ -1,19 +1,19 @@
 /* add your CSS here */
 .animal-card {
-    font-family: 'Ubuntu', sans-serif;
+    font-family: "Ubuntu", sans-serif;
     width: 316px;
-    background: linear-gradient(to bottom right, #c2b280, #836F30);
+    background: linear-gradient(to bottom right, #c2b280, #836f30);
     border: 0.5px solid gray;
     border-radius: 10px;
-    box-shadow: 10px 10px 10px #CECECE;
+    box-shadow: 10px 10px 10px #cecece;
 }
 
 .animal-name {
-    margin: 5px 8px 0px;
+    margin: 5px 8px 0;
 }
 
 .animal-image {
-    margin: 5px 8px 0px;
+    margin: 5px 8px 0;
     width: 300px;
 }
 
@@ -24,7 +24,7 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-.animal-interesting-facts {
+.animal-interesting-fact {
     margin: 10px 10px 0;
     font-style: italic;
 }
