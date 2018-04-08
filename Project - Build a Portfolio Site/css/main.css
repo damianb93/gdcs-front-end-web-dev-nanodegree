@@ -1,0 +1,81 @@
+body {
+    position: relative;
+    max-width: 800px;
+}
+
+header {
+    margin: 50px 0 0;
+}
+
+.udacity-logo {
+    height: 80px;
+}
+
+.info {
+    top: 0;
+    right: 0;
+    position: absolute;
+    text-align: right;
+}
+
+.name {
+    font-size: 50px;
+}
+
+.profession {
+    font-size: 20px;
+}
+
+.raleway-font {
+    font-family: "Raleway", sans-serif;
+    color: #2d3c49;
+}
+
+hr {
+    color: #7d97ad;
+    border: 2px solid #7d97ad;
+    margin: 20px 0;
+}
+
+.code-example-image {
+    max-width: 100%;
+}
+
+.featured-work-title {
+    margin-left: 10px;
+    color: #7d97ad
+}
+
+.work-example-container {
+    display: flex;
+    max-width: 100%;
+}
+
+.work-example {
+    display: flex;
+    flex-direction: column;
+    float: left;
+    margin-right: 10px;
+    width: calc((100% - 20px)/3);
+}
+
+.work-example:last-of-type {
+    margin-right: 0;
+}
+
+.work-example img {
+    max-width: 100%;
+}
+
+.project-details {
+    margin-top: 5px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.repo-link {
+    font-size: 12px;
+}
