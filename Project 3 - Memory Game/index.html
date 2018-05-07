@@ -1,93 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Memory Game</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/main.css" rel="stylesheet">
-        <link href="css/responsive.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">   
-    </head>
 
-    <body>
-        <div class="container">
-            <header class="header">
-                <h1 class="title font-hammersmith-one">Memory Game</h1>
-            </header>    
+<head>
+    <title>Memory Game</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/responsive.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Hammersmith+One" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+        crossorigin="anonymous">
+</head>
 
-            <main>
-                <section class="scoreboard font-hammersmith-one">
+<body>
+    <div class="main-container">
+        <header>
+            <h1 class="heading font-hammersmith-one">Memory Game</h1>
+        </header>
+
+        <main>
+            <section class="scoreboard font-hammersmith-one">
+                 Moves: <span class="moves">0</span> Time: <span class="time">0</span>
+                <i class="fas fa-redo-alt restart"></i>
+            </section>
+
+            <ul class="gameboard">
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+                <li class="card">
+                    <div class="card-back">
+                    </div>
+                    <div class="card-front">
+                        <i class="fas"></i>
+                    </div>
+                </li>
+            </ul>
+        </main>
+
+        <footer class="footer font-hammersmith-one">
+            <h4>Google Developer Challange Scholarship: <br> Front-End Web Developer Nanodegree Program <br> 2018</h4>
+        </footer>
+    </div>
+    <div class="summary-container">
+        <header>
+            <h1 class="heading font-hammersmith-one">Game Over</h1>
+        </header>
+
+        <main>
+            <h2 class="heading font-hammersmith-one">Summary:</h2>
+
+            <ul>
+                <li class="font-hammersmith-one">Moves: <span class="sum-moves"></span></li>
+                <li class="font-hammersmith-one">Time: <span class="sum-time"></span></li>
+                <li class="font-hammersmith-one">Stars: 
                     <!-- fas fa-star - full star
-                        fas fa-star-half - half star
-                        far fa-star - empty star -->
+                    fas fa-star-half - half star
+                    far fa-star - empty star -->
                     <i id="star1" class="fas fa-star"></i>
                     <i id="star2" class="fas fa-star"></i>
                     <i id="star3" class="fas fa-star"></i>
-                    Moves: <span class="moves">0</span>
-                    Time: <span class="time">0</span>
-                    <i class="fas fa-redo-alt restart"></i>
-                </section>
+                </li>
+            </ul>
 
-                <ul class="gameboard">
-                    <li class="card">
-                        <i class="fas fa-car"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-car"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-bus"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-bus"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-bicycle"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-bicycle"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-motorcycle"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-motorcycle"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-ship"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-ship"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-rocket"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-rocket"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-truck"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-truck"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-ambulance"></i>
-                    </li>
-                    <li class="card">
-                        <i class="fas fa-ambulance"></i>
-                    </li>
-                </ul>
-            </main>
+            <div class="button-container">
+                <button class="button sum-restart">Restart game</button>
+            </div>
+        </main>
+    </div>
 
-            <footer class="footer font-hammersmith-one">
-                <h4>Google Developer Challange Scholarship: <br>
-                    Front-End Web Developer Nanodegree Program <br>
-                    2018</h4>
-            </footer>
-        </div>
+    <script src="js/app.js"></script>
+</body>
 
-        <script src="js/app.js"></script>
-    </body>
 </html>

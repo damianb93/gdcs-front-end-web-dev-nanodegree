@@ -1,12 +1,12 @@
 @media screen and (min-width: 800px) {
-    .container {
+    .main-container, .summary-container {
         margin-left: auto;
         margin-right: auto;
     }
 }
 
 @media screen and (max-width: 650px) {
-    .container {
+    .main-container {
         padding: 0 15px;
     }
 }
