@@ -13,43 +13,45 @@ let clickCount = 0;
 let moves = 0;
 let pickedCards = [];
 let matchedCards = [];
-let icons = ['car', 'car', 'bus', 'bus', 'bicycle', 'bicycle', 'motorcycle', 'motorcycle', 'ship', 'ship', 'rocket', 'rocket', 'truck', 'truck', 'ambulance', 'ambulance'];
+let cards = ['car', 'car', 'bus', 'bus', 'bicycle', 'bicycle', 'motorcycle', 'motorcycle', 'ship', 'ship', 'rocket', 'rocket', 'truck', 'truck', 'ambulance', 'ambulance'];
 let startTime = 0;
-/** TODO fix interval not defined error */
 let inverval;
-let finalTime = 0;
-let finalMoves = 0;
-let finalScore = 0;
 
-document.addEventListener('DOMContentLoaded', function () {
-    randomizeCards();
+/*-----LISTENERS-----*/
+
+document.addEventListener('DOMContentLoaded', function() {
+    initGameState();
 });
 
 gameboard.addEventListener('click', function(evt){
 
-    if (clickCount >= 0 && clickCount <= 1 && evt.target.nodeName === 'LI' && !pickedCards.includes(evt.target) && !matchedCards.includes(evt.target)) {
+    /*  isBetween(clickCount, 0, 1) locks flipping more than 2 cards at a time
+        isCard(evt.target.nodeName) checks if clicked element is a card (cards are <li> elements)
+        !isPickedOrmatched checks if clicked card was already picked or matched if so then the click is ignored   
+    */
+    if (isBetween(clickCount, 0, 1) && isCard(evt.target.nodeName) && !isPickedOrMatched(evt.target)) {
 
+        //Starts the timer at first card click
         if (startTime === 0) {
             startTime = new Date();
             interval = setInterval(function(){
-                timerSpan.textContent = calculateTimeElapsed(new Date());
+                timerSpan.textContent = calculateElapsedTime(new Date());
             }, 1000);
         }
 
         const card = evt.target;
-        clickCount++;
         pickedCards.push(card);
+        clickCount++;
 
         card.classList.toggle('rotate');
         card.style.backgroundColor = 'rgba(0,0,0,0.5)';
         card.style.cursor = 'default';
 
-        card.style
-
         if (clickCount === 2) {
             moves++;
             movesSpan.textContent = moves;
-            checkIfEquals() ? markCardsAsMatched() : resetPickedCards();
+            
+            ifPickedCardsEquals() ? markPickedCardsAsMatched() : resetPickedCards();
         }
     }
 });
@@ -68,60 +70,15 @@ summaryRestartBtn.addEventListener('click', function() {
     restartGame();
 })
 
-function checkIfEquals() {
-    const firstCardIcon = pickedCards[0].lastElementChild.firstElementChild;
-    const secondCardIcon = pickedCards[1].lastElementChild.firstElementChild;
+/*-----FUNCTIONS-----*/
 
-    return firstCardIcon.classList.contains(secondCardIcon.classList.item(1));
-}
-
-function summaryGame(finalMoves, finalTime) {
-    /** TODO come up with finalScore calculation method */
-    /** TODO logic for stars */
-    const finalScore = 100;
-    mainContainer.style.display = 'none';
-    summaryContainer.style.display = 'block';
-    finalMovesSpan.textContent = finalMoves;
-    finalTimerSpan.textContent = finalTime + 's';
-}
-
-function markCardsAsMatched() {
-
-    pickedCards.forEach(e => {
-        e.style.backgroundColor = 'rgba(0, 255, 0, 0.5)';
-        matchedCards.push(e);
-    })
-    clickCount = 0;
-    pickedCards = [];
-
-    if (matchedCards.length === 16) {
-        summaryGame(moves, calculateTimeElapsed(new Date()));
-        console.log('Game over');
-    }
-}
-
-function calculateTimeElapsed(endTime) {
-    let timeDiff = (endTime - startTime)/1000;
-    return Math.round(timeDiff);
-}
-
-function resetPickedCards() {
-    pickedCards.forEach(e => {
-        e.style.backgroundColor = 'rgba(255,0,0,0.8)';
-    })
-    window.setTimeout(function(){
-        pickedCards.forEach(e => {
-            e.classList.toggle('rotate');
-            e.style.backgroundColor = 'rgba(0,0,0,0.8)';
-            e.style.cursor = 'pointer';
-            clickCount = 0;
-            pickedCards = []; 
-        })
-    }, 600);
+function initGameState() {
+    randomizeCards(cards);
+    setOrRemoveCards();
 }
 
 //Fisher–Yates Shuffle
-function shuffle(array) {
+function randomizeCards(array) {
     let counter = array.length;
 
     while (counter > 0) {
@@ -137,20 +94,86 @@ function shuffle(array) {
     return array;
 }
 
-function randomizeCards() {
-    shuffle(icons);
-    toggleCardsClasses();
+function isBetween(value, min, max) {
+    return value >= min && value <= max;
 }
 
-function toggleCardsClasses() {
+function isCard(elem) {
+    return elem === 'LI';
+}
+
+function isPickedOrMatched(card) {
+    return pickedCards.includes(card) || matchedCards.includes(card);
+}
+
+function ifPickedCardsEquals() {
+    const firstCard = pickedCards[0].lastElementChild.firstElementChild;
+    const secondCard = pickedCards[1].lastElementChild.firstElementChild;
+
+    return firstCard.classList.contains(secondCard.classList.item(1));
+}
+
+function calculateElapsedTime(endTime) {
+    const timeDiff = (endTime - startTime)/1000;
+    return Math.round(timeDiff);
+}
+
+// Sets/removes icon classes for cards
+function setOrRemoveCards() {
     let index = 0;
     document.querySelectorAll('.card i').forEach(e => {
-        e.classList.toggle('fa-'+ icons[index]);
+        e.classList.toggle('fa-'+ cards[index]);
         index++;
     });
 }
 
+function markPickedCardsAsMatched() {
+
+    pickedCards.forEach(e => {
+        e.style.backgroundColor = 'rgba(0, 255, 0, 0.5)'; // Sets cards background to green (correct attempt)
+        matchedCards.push(e);
+    })
+    clickCount = 0;
+    pickedCards = [];
+
+    // if all cards are matched
+    if (matchedCards.length === 16) {
+        summaryGame(moves, calculateElapsedTime(new Date()));
+    }
+}
+
+function resetPickedCards() {
+    pickedCards.forEach(e => {
+        e.style.backgroundColor = 'rgba(255,0,0,0.8)'; // Sets cards background to red (wrong attempt)
+    })
+
+    // Flips cards back to initial position, resets clickCount and pickedCards array
+    window.setTimeout(function(){
+        pickedCards.forEach(e => {
+            e.classList.toggle('rotate');
+            e.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            e.style.cursor = 'pointer';
+
+            clickCount = 0;
+            pickedCards = []; 
+        })
+    }, 600);
+}
+
+function summaryGame(finalMoves, finalTime) {
+    /** TODO come up with finalScore calculation method */
+    /** TODO logic for stars */
+    mainContainer.style.display = 'none';
+    summaryContainer.style.display = 'block';
+
+    const finalScore = 100;
+    finalMovesSpan.textContent = finalMoves;
+    finalTimerSpan.textContent = finalTime + 's';
+}
+
 function restartGame() {
+
+    // Sets intial position of all cards on board
     document.querySelectorAll('.card').forEach(e => {
         if (e.classList.contains('rotate')) {
             e.classList.toggle('rotate');
@@ -160,20 +183,20 @@ function restartGame() {
     })
 
     window.setTimeout(function() {    
-        toggleCardsClasses(); //Delete existing classes
-        randomizeCards(); //Randomize order of icon classes and adds them to the cards
+        setOrRemoveCards(); // Remove existing cards
+        initGameState();
     }, 600);
 
     moves = 0;
     movesSpan.textContent = moves;
+    startTime = 0;
+    timerSpan.textContent = 0;
+
     clickCount = 0;
     pickedCards = [];
     matchedCards = [];
     clearInterval(interval);
-    startTime = 0;
-    timerSpan.textContent = 0;
 }
 
 /** TODO add animation for correct/wrong attempt */
 /** TODO Check rubric for details - check up if everything is done */
-/** TODO refactor code */
