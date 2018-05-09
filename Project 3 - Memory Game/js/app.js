@@ -8,7 +8,6 @@ const timerSpan = document.querySelector('.time');
 const finalMovesSpan = document.querySelector('.sum-moves');
 const finalTimerSpan = document.querySelector('.sum-time');
 
-
 let clickCount = 0;
 let moves = 0;
 let pickedCards = [];
@@ -24,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 gameboard.addEventListener('click', function(evt){
-
     /*  isBetween(clickCount, 0, 1) locks flipping more than 2 cards at a time
         isCard(evt.target.nodeName) checks if clicked element is a card (cards are <li> elements)
         !isPickedOrmatched checks if clicked card was already picked or matched if so then the click is ignored   
@@ -51,7 +49,7 @@ gameboard.addEventListener('click', function(evt){
             moves++;
             movesSpan.textContent = moves;
             
-            ifPickedCardsEquals() ? markPickedCardsAsMatched() : resetPickedCards();
+            arePickedCardsEqual() ? markPickedCardsAsMatched() : resetPickedCards();
         }
     }
 });
@@ -106,7 +104,7 @@ function isPickedOrMatched(card) {
     return pickedCards.includes(card) || matchedCards.includes(card);
 }
 
-function ifPickedCardsEquals() {
+function arePickedCardsEqual() {
     const firstCard = pickedCards[0].lastElementChild.firstElementChild;
     const secondCard = pickedCards[1].lastElementChild.firstElementChild;
 
@@ -128,7 +126,6 @@ function setOrRemoveCards() {
 }
 
 function markPickedCardsAsMatched() {
-
     pickedCards.forEach(e => {
         e.style.backgroundColor = 'rgba(0, 255, 0, 0.5)'; // Sets cards background to green (correct attempt)
         matchedCards.push(e);
@@ -172,7 +169,6 @@ function summaryGame(finalMoves, finalTime) {
 }
 
 function restartGame() {
-
     // Sets intial position of all cards on board
     document.querySelectorAll('.card').forEach(e => {
         if (e.classList.contains('rotate')) {
