@@ -7,6 +7,9 @@ const movesSpan = document.querySelector('.moves');
 const timerSpan = document.querySelector('.time');
 const finalMovesSpan = document.querySelector('.sum-moves');
 const finalTimerSpan = document.querySelector('.sum-time');
+const firstStar = document.querySelector('#star1');
+const secondStar = document.querySelector('#star2');
+const thirdStar = document.querySelector('#star3');
 
 let clickCount = 0;
 let moves = 0;
@@ -14,7 +17,7 @@ let pickedCards = [];
 let matchedCards = [];
 let cards = ['car', 'car', 'bus', 'bus', 'bicycle', 'bicycle', 'motorcycle', 'motorcycle', 'ship', 'ship', 'rocket', 'rocket', 'truck', 'truck', 'ambulance', 'ambulance'];
 let startTime = 0;
-let inverval;
+let interval;
 
 /*-----LISTENERS-----*/
 
@@ -29,7 +32,7 @@ gameboard.addEventListener('click', function(evt){
     */
     if (isBetween(clickCount, 0, 1) && isCard(evt.target.nodeName) && !isPickedOrMatched(evt.target)) {
 
-        //Starts the timer at first card click
+        //Starts the timer at first card clicks
         if (startTime === 0) {
             startTime = new Date();
             interval = setInterval(function(){
@@ -56,7 +59,6 @@ gameboard.addEventListener('click', function(evt){
 
 restartBtn.addEventListener('click', function() {
     restartGame();
-    // summaryGame(moves, 0); 
 });
 
 summaryRestartBtn.addEventListener('click', function() {
@@ -157,15 +159,91 @@ function resetPickedCards() {
     }, 600);
 }
 
+/* 3 STARS TO GET OVERALL, 1,5 STAR FOR MOVES AND 1,5 STAR FOR TIME */
+function calculateFinalScore(finalMoves, finalTime) {
+    let finalScore = 0;
+
+    if (finalMoves <= 13) {
+        finalScore += 1.5;
+    } else if (finalMoves <= 18) {
+        finalScore += 1;
+    } else if (finalMoves <= 22) {
+        finalScore += 0.5;
+    }
+
+    if (finalTime <= 20) {
+        finalScore += 1.5;
+    } else if (finalTime <= 27) {
+        finalScore += 1;
+    } else if (finalTime <= 32) {
+        finalScore += 0.5;
+    }
+
+    return finalScore;
+}
+
+function setPlayerRating(finalScore) {
+
+    switch(finalScore) {
+        case 3: 
+            setStars(1, 1, 1);
+            break;
+        case 2.5:
+            setStars(1, 1, 0.5);
+            break;
+        case 2:
+            setStars(1, 1, 0);
+            break;
+        case 1.5:
+            setStars(1, 0.5, 0);
+            break;
+        case 1:
+            setStars(1, 0, 0);
+            break;
+        case 0.5:
+            setStars(0.5, 0, 0);
+            break;
+        default: 
+            setStars(0, 0, 0);
+    }
+}
+
+function setStars(firstStarVal, secondStarVal, thirdStarVal) {
+    setStarClasses(firstStar, firstStarVal);
+    setStarClasses(secondStar, secondStarVal);
+    setStarClasses(thirdStar, thirdStarVal);
+}
+
+function setStarClasses(star, value) {
+
+    switch(value) {
+        case 1: 
+            star.classList.add('fas', 'fa-star');
+            break;
+        case 0.5:
+            star.classList.add('fas', 'fa-star-half');
+            break;
+        default:
+            star.classList.add('far', 'fa-star');
+    }
+}
+
 function summaryGame(finalMoves, finalTime) {
-    /** TODO come up with finalScore calculation method */
-    /** TODO logic for stars */
+    const finalScore = calculateFinalScore(finalMoves, finalTime);
+
+    setPlayerRating(finalScore);
+
     mainContainer.style.display = 'none';
     summaryContainer.style.display = 'block';
-
-    const finalScore = 100;
+    
     finalMovesSpan.textContent = finalMoves;
     finalTimerSpan.textContent = finalTime + 's';
+}
+
+function removeStars() {
+    firstStar.removeAttribute('class');
+    secondStar.removeAttribute('class');
+    thirdStar.removeAttribute('class');    
 }
 
 function restartGame() {
@@ -192,6 +270,7 @@ function restartGame() {
     pickedCards = [];
     matchedCards = [];
     clearInterval(interval);
+    removeStars();
 }
 
 /** TODO add animation for correct/wrong attempt */
