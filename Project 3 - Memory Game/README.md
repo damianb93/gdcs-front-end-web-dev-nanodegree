@@ -1,7 +1,18 @@
 # Project: Memory Game
+
 Project created for Google Developer Challange Scholarship: Front-End Web Developer Nanodegree Program 2018.
+
 ## Description
+
 Memory game is an web app playable both on desktop and mobile devices. The core functionality of game is based on memorizing and matching figures. In order to win Player needs to match all of 8 pairs of cards placed on gameboard. Player's rating depends on number of moves needed to complete the task.
+
+## Dependencies
+
+Project was built without any external JS libraries or frameworks.
+
+**Resources:**    
+Font Hammersmith One used in project comes from https://fonts.google.com/.  
+Icon set used for card figures comes from https://fontawesome.com/.
 
 ## Project structure
 
