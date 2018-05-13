@@ -17,7 +17,7 @@ Memory game is an web app playable both on desktop and mobile devices. The core 
       `-- responsive.css
 ```
 
-**index.html** - Main html file divided into two containers. First container `<div class="main-container">` includes basic view of the game, containing gameboard with cards and scoreboard (number of moves and time). Second container `<div class="summary-container">` includes summary view of players performance and a restart button.
+**index.html** - Main html file divided into two containers. First container `<div class="main-container">` includes basic view of the game, containing gameboard with cards and scoreboard (number of moves and time). Second container `<div class="summary-container">` includes summary view of player's performance and a restart button.
 
 **js/app.js** - Includes logic for the game written in pure js.
 
@@ -25,4 +25,10 @@ Memory game is an web app playable both on desktop and mobile devices. The core 
 
 **css/main.css** - Includes core styling for elements.
 
-**css/responsive.css** - Includes css for responsive design of the game. 
+**css/responsive.css** - Includes css for responsive design of the game.
+
+## Rating
+
+★★★ - Tree star rating is reachedd when number of moves doesn't exceed 14.
+★★☆- Two star rating is reached when number of moves excee 14 but doesn't exceed 20. 
+★☆☆ - One star rating is reached when number of moves exceed 20.
