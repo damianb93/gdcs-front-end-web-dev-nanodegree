@@ -10,6 +10,7 @@ const finalTimerSpan = document.querySelector('.sum-time');
 const firstStar = document.querySelector('#star1');
 const secondStar = document.querySelector('#star2');
 const thirdStar = document.querySelector('#star3');
+const starsContainers = document.querySelectorAll('.stars');
 
 let clickCount = 0;
 let moves = 0;
@@ -20,9 +21,9 @@ let startTime = 0;
 let interval;
 
 /*-----LISTENERS-----*/
-
 document.addEventListener('DOMContentLoaded', function() {
     initGameState();
+    initStars();
 });
 
 gameboard.addEventListener('click', function(evt){
@@ -50,6 +51,12 @@ gameboard.addEventListener('click', function(evt){
         if (clickCount === 2) {
             moves++;
             movesSpan.textContent = moves;
+
+            if (moves === 15) {
+                emptyStar(2);
+            } else if (moves === 21) {
+                emptyStar(1);
+            }
             
             arePickedCardsEqual() ? markPickedCardsAsMatched() : resetPickedCards();
         }
@@ -70,7 +77,6 @@ summaryRestartBtn.addEventListener('click', function() {
 })
 
 /*-----FUNCTIONS-----*/
-
 function initGameState() {
     randomizeCards(cards);
     setOrRemoveCards();
@@ -126,6 +132,44 @@ function setOrRemoveCards() {
     });
 }
 
+function initStars() {
+    starsContainers.forEach(e => {
+        for (star of e.children) {
+            setFullStar(star);
+        }
+    })
+}
+
+function removeStars() {
+    starsContainers.forEach(e => {
+        for (star of e.children) {
+            removeStarClass(star);
+        }
+    })
+}
+
+function emptyStar(index) {
+    starsContainers.forEach(e => {
+        if (index >= 0 && index <= e.children.length) {
+            const star = e.children.item(index);
+            removeStarClass(star);
+            setEmptyStar(star);
+        }
+    })
+}
+
+function setFullStar(star) {
+    star.classList.add('fas', 'fa-star');
+}
+
+function setEmptyStar(star) {
+    star.classList.add('far', 'fa-star');
+}
+
+function removeStarClass(star) {
+    star.removeAttribute('class');  
+}
+
 function markPickedCardsAsMatched() {
     pickedCards.forEach(e => {
         e.classList.add('match');
@@ -133,13 +177,8 @@ function markPickedCardsAsMatched() {
         matchedCards.push(e);
     })
 
-    window.setTimeout(function() {
-        pickedCards.forEach(e => {
-            e.classList.remove('match');
-        });
-        clickCount = 0;
-        pickedCards = [];
-    }, 650);
+    clickCount = 0;
+    pickedCards = [];
 
     // if all cards are matched
     if (matchedCards.length === 16) {
@@ -148,7 +187,6 @@ function markPickedCardsAsMatched() {
 }
 
 function resetPickedCards() {
-
     pickedCards.forEach(e => {
         e.classList.add('shake');
         e.style.backgroundColor = 'rgba(255,0,0,0.8)'; // Sets cards background to red (wrong attempt)
@@ -168,91 +206,12 @@ function resetPickedCards() {
     }, 650);
 }
 
-/* 3 STARS TO GET OVERALL, 1,5 STAR FOR MOVES AND 1,5 STAR FOR TIME */
-function calculateFinalScore(finalMoves, finalTime) {
-    let finalScore = 0;
-
-    if (finalMoves <= 13) {
-        finalScore += 1.5;
-    } else if (finalMoves <= 18) {
-        finalScore += 1;
-    } else if (finalMoves <= 22) {
-        finalScore += 0.5;
-    }
-
-    if (finalTime <= 20) {
-        finalScore += 1.5;
-    } else if (finalTime <= 27) {
-        finalScore += 1;
-    } else if (finalTime <= 32) {
-        finalScore += 0.5;
-    }
-
-    return finalScore;
-}
-
-function setPlayerRating(finalScore) {
-
-    switch(finalScore) {
-        case 3: 
-            setStars(1, 1, 1);
-            break;
-        case 2.5:
-            setStars(1, 1, 0.5);
-            break;
-        case 2:
-            setStars(1, 1, 0);
-            break;
-        case 1.5:
-            setStars(1, 0.5, 0);
-            break;
-        case 1:
-            setStars(1, 0, 0);
-            break;
-        case 0.5:
-            setStars(0.5, 0, 0);
-            break;
-        default: 
-            setStars(0, 0, 0);
-    }
-}
-
-function setStars(firstStarVal, secondStarVal, thirdStarVal) {
-    setStarClasses(firstStar, firstStarVal);
-    setStarClasses(secondStar, secondStarVal);
-    setStarClasses(thirdStar, thirdStarVal);
-}
-
-function setStarClasses(star, value) {
-
-    switch(value) {
-        case 1: 
-            star.classList.add('fas', 'fa-star');
-            break;
-        case 0.5:
-            star.classList.add('fas', 'fa-star-half');
-            break;
-        default:
-            star.classList.add('far', 'fa-star');
-    }
-}
-
 function summaryGame(finalMoves, finalTime) {
-    const finalScore = calculateFinalScore(finalMoves, finalTime);
-
-    setPlayerRating(finalScore);
-
     mainContainer.style.display = 'none';
     summaryContainer.style.display = 'block';
     
     finalMovesSpan.textContent = finalMoves;
     finalTimerSpan.textContent = finalTime + 's';
-}
-
-function removeStars() {
-    firstStar.removeAttribute('class');
-    secondStar.removeAttribute('class');
-    thirdStar.removeAttribute('class');    
 }
 
 function restartGame() {
@@ -262,6 +221,10 @@ function restartGame() {
             e.classList.toggle('rotate');
             e.style.backgroundColor = 'rgba(0,0,0,0.8)';
             e.style.cursor = 'pointer';
+        }
+
+        if (e.classList.contains('match')) {
+            e.classList.remove('match');
         }
     })
 
@@ -280,7 +243,5 @@ function restartGame() {
     matchedCards = [];
     clearInterval(interval);
     removeStars();
+    initStars();
 }
-
-/** TODO add animation for correct/wrong attempt */
-/** TODO Check rubric for details - check up if everything is done */
