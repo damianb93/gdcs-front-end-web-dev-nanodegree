@@ -27,6 +27,6 @@ Memory game is an web app playable both on desktop and mobile devices. The core 
 
 ## Rating
 
-★★★ - Tree star rating is reachedd when number of moves doesn't exceed 14.  
-★★☆- Two star rating is reached when number of moves excee 14 but doesn't exceed 20.  
+★★★ - Tree star rating is reached when number of moves doesn't exceed 14.  
+★★☆- Two star rating is reached when number of moves exceed 14 but doesn't exceed 20.  
 ★☆☆ - One star rating is reached when number of moves exceed 20.  
