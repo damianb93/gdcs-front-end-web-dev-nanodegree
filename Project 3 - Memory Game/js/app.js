@@ -31,7 +31,6 @@ gameboard.addEventListener('click', function(evt){
         !isPickedOrmatched checks if clicked card was already picked or matched if so then the click is ignored   
     */
     if (isBetween(clickCount, 0, 1) && isCard(evt.target.nodeName) && !isPickedOrMatched(evt.target)) {
-
         //Starts the timer at first card clicks
         if (startTime === 0) {
             startTime = new Date();
@@ -129,11 +128,18 @@ function setOrRemoveCards() {
 
 function markPickedCardsAsMatched() {
     pickedCards.forEach(e => {
+        e.classList.add('match');
         e.style.backgroundColor = 'rgba(0, 255, 0, 0.5)'; // Sets cards background to green (correct attempt)
         matchedCards.push(e);
     })
-    clickCount = 0;
-    pickedCards = [];
+
+    window.setTimeout(function() {
+        pickedCards.forEach(e => {
+            e.classList.remove('match');
+        });
+        clickCount = 0;
+        pickedCards = [];
+    }, 650);
 
     // if all cards are matched
     if (matchedCards.length === 16) {
@@ -142,7 +148,9 @@ function markPickedCardsAsMatched() {
 }
 
 function resetPickedCards() {
+
     pickedCards.forEach(e => {
+        e.classList.add('shake');
         e.style.backgroundColor = 'rgba(255,0,0,0.8)'; // Sets cards background to red (wrong attempt)
     })
 
@@ -155,8 +163,9 @@ function resetPickedCards() {
 
             clickCount = 0;
             pickedCards = []; 
+            e.classList.remove('shake');
         })
-    }, 600);
+    }, 650);
 }
 
 /* 3 STARS TO GET OVERALL, 1,5 STAR FOR MOVES AND 1,5 STAR FOR TIME */
