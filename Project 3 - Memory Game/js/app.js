@@ -195,28 +195,34 @@ function removeStarClass(star) {
 /* Pushes currently picked cards to matchedCards array and resets clickCount and pickedCards array
    If the game is over (all pairs are matched) invokes summaryGame method */
 function markPickedCardsAsMatched() {
-    pickedCards.forEach(e => {
-        e.classList.add('match');
-        e.style.backgroundColor = 'rgba(0, 255, 0, 0.5)'; // Sets cards background to green (correct attempt)
-        matchedCards.push(e);
-    })
+    window.setTimeout(function(){
+        pickedCards.forEach(e => {
+            e.classList.add('match');
+            e.style.backgroundColor = 'rgba(0, 255, 0, 0.5)'; // Sets cards background to green (correct attempt)
+            matchedCards.push(e);       
+        })
 
-    clickCount = 0;
-    pickedCards = [];
+        clickCount = 0;
+        pickedCards = [];
 
-    // if all cards are matched
-    if (matchedCards.length === 16) {
-        summaryGame(moves, calculateElapsedTime(new Date()));
-    }
+        // if all cards are matched
+        window.setTimeout(function(){
+            if (matchedCards.length === 16) {
+                summaryGame(moves, calculateElapsedTime(new Date()));
+            }
+        }, 400);
+    }, 280);
 }
 
 /* Informs the user of incorrect attempt by shaking card and changing background color to red
    Resets selected cards state */
 function resetPickedCards() {
-    pickedCards.forEach(e => {
-        e.classList.add('shake');
-        e.style.backgroundColor = 'rgba(255,0,0,0.8)'; // Sets cards background to red (wrong attempt)
-    })
+    window.setTimeout(function(){
+        pickedCards.forEach(e => {
+            e.classList.add('shake');
+            e.style.backgroundColor = 'rgba(255,0,0,0.8)'; // Sets cards background to red (wrong attempt)
+        })
+    }, 280);
 
     // Flips cards back to initial position, resets background color, clickCount variable and pickedCards array
     window.setTimeout(function(){
@@ -229,7 +235,7 @@ function resetPickedCards() {
             pickedCards = []; 
             e.classList.remove('shake');
         })
-    }, 650);
+    }, 950);
 }
 
 /* Changes view from game to summary */
