@@ -234,6 +234,9 @@ function resetPickedCards() {
 
 /* Changes view from game to summary */
 function summaryGame(finalMoves, finalTime) {
+    if (interval) {
+        clearInterval(interval);
+    }
     mainContainer.style.display = 'none';
     summaryContainer.style.display = 'block';
     
