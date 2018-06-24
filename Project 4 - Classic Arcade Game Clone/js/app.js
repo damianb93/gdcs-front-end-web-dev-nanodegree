@@ -1,28 +1,39 @@
 // Enemies our player must avoid
 class Enemy {
-    
+        // Set intial y prosition (row) of enemy object to rando
         constructor() {
             this.sprite = 'images/enemy-bug.png';
-            this.x = 0;
-            this.y = 63;
+            this.startingRows = [63, 146, 229];
+            this.initialSpeed = 150;
+
+            this.resetState();
         }
     
         // Update the enemy's position, required method for game
         // Parameter: dt, a time delta between ticks
         update(dt) {
-    
+            this.x += (dt * this.speed);
+
+            if (this.x >= 505) { this.resetState(); }
         }
     
         // Draw the enemy on the screen, required method for game
         render() {
             ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
         }
+
+        // Set enemy object's position to intial one with random starting row and movement speed
+        resetState() {
+            this.x = -101;
+            this.y = this.startingRows[Math.floor(Math.random() * (this.startingRows.length))];
+            this.speed = this.initialSpeed * (Math.random() * 2 + 1);
+        }
     }
     
 class Player {
-
     constructor() {
         this.sprite = 'images/char-boy.png';
+
         this.resetPosition();
     }
 
