@@ -101,6 +101,8 @@ var Engine = (function(global) {
         allEnemies.forEach(enemy => {
             if (enemy.hitbox.y === player.hitbox.y && 
                     enemy.hitbox.xMax >= player.hitbox.xMin && enemy.hitbox.xMin <= player.hitbox.xMax) {
+                player.resetScore();
+                player.updateScoreboard();
                 player.resetPosition();
             }
         })

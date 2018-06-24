@@ -1,16 +1,17 @@
 // Enemies our player must avoid
 class Enemy {
-        // Set intial y prosition (row) of enemy object to rando
+        // Set intial enemy's properties
         constructor() {
             this.sprite = 'images/enemy-bug.png';
-            this.startingRows = [63, 146, 229];
+            this.collisionRows = [63, 146, 229];
             this.initialSpeed = 150;
 
             this.resetState();
         }
     
-        // Update the enemy's position, required method for game
+        // Update the enemy's position and hitbox
         // Parameter: dt, a time delta between ticks
+        // Reset enemy's position when they go offscreen
         update(dt) {
             this.x += (dt * this.speed);
 
@@ -31,7 +32,7 @@ class Enemy {
         // Set enemy object's position to intial one with random starting row and movement speed
         resetState() {
             this.x = -101;
-            this.y = this.startingRows[Math.floor(Math.random() * (this.startingRows.length))];
+            this.y = this.collisionRows[Math.floor(Math.random() * (this.collisionRows.length))];
             this.speed = this.initialSpeed * (Math.random() * 2 + 1);
         }
     }
@@ -39,13 +40,26 @@ class Enemy {
 class Player {
     constructor() {
         this.sprite = 'images/char-boy.png';
+        this.scoreRecord = 0;
+        this.scoreboard = document.querySelector('.scoreboard');
 
         this.resetPosition();
+        this.resetScore();
+        this.updateScoreboard();
     }
 
     // Update player's state
     update() {
-        if (this.y <= -30) { this.resetPosition(); }
+        // Player wins the game
+        if (this.y <= -30) { 
+            this.score++;
+            if (this.scoreRecord < this.score) {
+                this.scoreRecord = this.score;
+            }
+
+            this.updateScoreboard();
+            this.resetPosition();
+        }
 
         this.hitbox = {
             xMin: this.x + 28,
@@ -81,6 +95,14 @@ class Player {
     resetPosition() {
         this.x = 202;
         this.y = 385;
+    }
+
+    resetScore() {
+        this.score = 0;
+    }
+
+    updateScoreboard() {
+        this.scoreboard.innerText = `Score: ${this.score} Record: ${this.scoreRecord}`;
     }
 }
 
