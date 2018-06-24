@@ -1,6 +1,31 @@
-frontend-nanodegree-arcade-game
-===============================
+# Project: Classic Arcade Game Clone
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+Project created for Google Developer Challange Scholarship: Front-End Web Developer Nanodegree Program 2018.
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+## Description
+
+Game created in this project is a clone of popular arcade game called [Frogger](https://en.wikipedia.org/wiki/Frogger).  
+The basic concept of the game is to cross road full of traffic without being hit by enemies. Each succesfull attempt adds a point to scoreboard.
+
+## Dependencies
+
+Project was built without any external JS libraries or frameworks.
+
+**Resources:**  
+Font Anton used in project comes from https://fonts.google.com/.
+
+## Run && Play
+
+In order to run the game just open index.html file in your web browser.  
+
+**Player controls**:  
+* Arrow Up - Moves player one field up
+* Arrow Down - Moves player one field down
+* Arrow Left - Moves player one field to the left
+* Arrow Right - Moves player one field to the right
+
+Player wins the game when the water is reached without being hit by enemies. Succesful attempt adds a point to score. Failure resets current score.
+
+## Screenshots
+
+![result image](./images/result.png)
