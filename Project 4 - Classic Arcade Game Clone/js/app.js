@@ -15,6 +15,12 @@ class Enemy {
             this.x += (dt * this.speed);
 
             if (this.x >= 505) { this.resetState(); }
+
+            this.hitbox = {
+                xMin: this.x,
+                xMax: this.x + 101,
+                y: this.y
+            }
         }
     
         // Draw the enemy on the screen, required method for game
@@ -40,6 +46,12 @@ class Player {
     // Update player's state
     update() {
         if (this.y <= -30) { this.resetPosition(); }
+
+        this.hitbox = {
+            xMin: this.x + 28,
+            xMax: this.x + 73,
+            y: this.y + 10
+        }
     }
 
     // Draw the player on the screen
