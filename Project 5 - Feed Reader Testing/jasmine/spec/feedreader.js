@@ -9,7 +9,7 @@
  * to ensure they don't run until the DOM is ready.
  */
 $(function() {
-    /* This is our first test suite - a test suite just contains
+   /* This is our first test suite - a test suite just contains
     * a related set of tests. This suite is all about the RSS
     * feeds definitions, the allFeeds variable in our application.
     */
@@ -27,9 +27,8 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
+        /* Test checks if all RSS feed objects have url property
+         * and checks if its value is not empty.
          */
         it('have url defined and not empty', () => {
             allFeeds.forEach(e => {
@@ -38,10 +37,8 @@ $(function() {
             })
         })
 
-
-        /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
+        /* Test checks if all RSS feed objects have name property
+         * and checks if its value is not empty.
          */
         it('have name defined and not empty', () => {
             allFeeds.forEach(e => {
@@ -51,23 +48,16 @@ $(function() {
         })
     });
 
-
-    /* TODO: Write a new test suite named "The menu" */
     describe('The menu', () => {
-        /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
+
+         /* Tests checks if menu is hidden by default on application
+          * startup.
+          */
         it('is hidden by default', () => {
             expect($('body').context.body.classList.contains('menu-hidden')).toBe(true);
         });
 
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
+        // Test checks if menu toggling is working properly
          it('toggles on icon click', () => {
             const menuIcon = $('.menu-icon-link');
             const initialState = $('body').context.body.classList.contains('menu-hidden');
@@ -80,13 +70,10 @@ $(function() {
          })
     })
 
-    /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', () => {
-        /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
+
+        /* Invokes async loadFeed function to load page content 
+         * and finishes it before tests.
          */
         beforeEach((done) => {
             loadFeed(0, () => {
@@ -94,20 +81,23 @@ $(function() {
             });
         })
 
+        /* Test chekcs if there's at least one entry element on page
+         * after page load
+         */
         it('are not empty', () => {
             expect($('.feed')['0'].children.length).toBeGreaterThan(0);
         });
     });
 
-    /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', () => {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
         let firstChildLink;
         let firstChildLinkChanged;
         
+
+        /* Pre test initialization method which calls async methods
+         * one after another. Href property of first child object is assigned
+         * to variables for each of the methods.
+         */
         beforeEach((done) => {
             loadFeed(0, () => {
                 firstChildLink = $('.feed')['0'].children[0].href;
@@ -118,6 +108,9 @@ $(function() {
             });
         });
 
+        /* Test checks if content changes after change of the feed.
+         * It tests equality of href properties assigned in beforeEach method.
+         */
         it('changes content', () => {
             expect(firstChildLink).not.toEqual(firstChildLinkChanged);
         })
