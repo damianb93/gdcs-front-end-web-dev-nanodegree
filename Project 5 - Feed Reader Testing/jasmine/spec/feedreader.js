@@ -85,7 +85,7 @@ $(function() {
          * after page load
          */
         it('are not empty', () => {
-            expect($('.feed')['0'].children.length).toBeGreaterThan(0);
+            expect($('.feed a.entry-link').length).toBeGreaterThan(0);
         });
     });
 
